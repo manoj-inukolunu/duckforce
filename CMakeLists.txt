@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 
 # Set extension name here
-set(TARGET_NAME quack)
+set(TARGET_NAME duckforce)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 # DuckDB's extension distribution supports vcpkg. As such, dependencies can be added in ./vcpkg.json and then
 # used in cmake with find_package. Feel free to remove or replace with other dependencies.
@@ -14,7 +16,11 @@ set(LOADABLE_EXTENSION_NAME ${TARGET_NAME}_loadable_extension)
 project(${TARGET_NAME})
 include_directories(src/include)
 
-set(EXTENSION_SOURCES src/quack_extension.cpp)
+set(EXTENSION_SOURCES src/duckforce_extension.cpp
+                      src/duckforce_storage.cpp
+                      src/storage/duckforce_catalog.cpp
+                      src/duckforce_transaction_manager.cpp
+)
 
 build_static_extension(${TARGET_NAME} ${EXTENSION_SOURCES})
 build_loadable_extension(${TARGET_NAME} " " ${EXTENSION_SOURCES})
