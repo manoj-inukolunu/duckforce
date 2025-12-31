@@ -1,0 +1,23 @@
+# name: test/sql/duckforce.test
+# description: test duckforce extension
+# group: [sql]
+
+# Before we load the extension, this will fail
+statement error
+SELECT duckforce('Sam');
+----
+Catalog Error: Scalar Function with name duckforce does not exist!
+
+# Require statement will ensure this test is run with this extension loaded
+require duckforce
+
+# Confirm the extension works
+query I
+SELECT duckforce('Sam');
+----
+Duckforce Sam 🐥
+
+query I
+SELECT duckforce_openssl_version('Michael') ILIKE 'Duckforce Michael, my linked OpenSSL version is OpenSSL%';
+----
+true
